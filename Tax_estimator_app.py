@@ -31,10 +31,12 @@ real_estate_tax_paid = st.number_input("Real Estate Taxes Paid", value=0)
 resident_tax_credit = real_estate_tax_paid * 0.05
 
 # Scoped copies
+
 adjusted_income_fed = income_sources.copy()
 adjusted_income_il = apply_pso_credit(income_sources.copy(), is_pso_eligible)
 
 # Compute taxes
+
 fed_results = estimate_tax(adjusted_income_fed, age_1, age_2, min(capital_loss_carryover, 3000))
 fed_taxed_retirement = (
     income_sources.get("Social Security", 0) +
@@ -55,6 +57,7 @@ il_results = compute_illinois_tax(
 )
 
 # Display
+
 st.subheader("📊 Federal Tax Summary")
 for k, v in fed_results.items():
     if k not in ["Bracket Breakdown", "CG Breakdown"]:
