@@ -9,10 +9,12 @@ from illinois_tax import apply_pso_credit, compute_illinois_tax
 st.title("💸 IRA Conversion & Tax Estimator")
 
 df = st.data_editor(pd.DataFrame({
-'Taxpayer 1':[66],
-'Taxpayer 2':[64]
+'Taxpayer 1':[66,15000,10000,12500,0,0,1500,500,2500,10000,20000],
+'Taxpayer 2':[64,15000,10000,12500,0,0,1500,0,2500,10000,20000]
 },
-index=["age"]))
+index=["age","IRA Withdrawals","Roth Conversions","Pension","Thrift Savings Plan","Annuity",
+"Interest","Ordinary Dividends","Qualified Dividends","Capital Gains","Social Security",]),
+width="content",height="content",disabled=["_index"])
 
 # age_1 = st.number_input("Age of Taxpayer 1", value=64)
 # age_2 = st.number_input("Age of Taxpayer 2", value=60)
@@ -21,16 +23,16 @@ age_1 = df.loc["age"]["Taxpayer 1"]
 age_2 = df.loc["age"]["Taxpayer 2"]
 
 income_sources = {
-    "IRA Withdrawals": st.number_input("IRA Withdrawals", value=30000),
-    "Roth Conversions": st.number_input("Roth Conversions", value=20000),
-    "Pension": st.number_input("Pension", value=25000),
-    "TSP": st.number_input("Thrift Savings Plan", value=0),
-    "Annuity": st.number_input("Annuity", value=0),
-    "Interest": st.number_input("Interest", value=3000),
-    "Ordinary Dividends": st.number_input("Ordinary Dividends", value=0),
-    "Qualified Dividends": st.number_input("Qualified Dividends", value=5000),
-    "Capital Gains": st.number_input("Capital Gains", value=10000),
-    "Social Security": st.number_input("Social Security", value=40000)
+    "IRA Withdrawals": df.loc["IRA Withdrawals"]["Taxpayer 1"]+df.loc["IRA Withdrawals"]["Taxpayer 2"],
+    "Roth Conversions": df.loc["Roth Conversions"]["Taxpayer 1"]+df.loc["Roth Conversions"]["Taxpayer 2"],
+    "Pension": df.loc["Pension"]["Taxpayer 1"]+df.loc["Pension"]["Taxpayer 2"],
+    "TSP": df.loc["Thrift Savings Plan"]["Taxpayer 1"]+df.loc["Thrift Savings Plan"]["Taxpayer 2"],
+    "Annuity": df.loc["Annuity"]["Taxpayer 1"]+df.loc["Annuity"]["Taxpayer 2"],
+    "Interest": df.loc["Interest"]["Taxpayer 1"]+df.loc["Interest"]["Taxpayer 2"],
+    "Ordinary Dividends": df.loc["Ordinary Dividends"]["Taxpayer 1"]+df.loc["Ordinary Dividends"]["Taxpayer 2"],
+    "Qualified Dividends": df.loc["Qualified Dividends"]["Taxpayer 1"]+df.loc["Qualified Dividends"]["Taxpayer 2"],
+    "Capital Gains": df.loc["Capital Gains"]["Taxpayer 1"]+df.loc["Capital Gains"]["Taxpayer 2"],
+    "Social Security": df.loc["Social Security"]["Taxpayer 1"]+df.loc["Social Security"]["Taxpayer 2"]
 }
 
 # capital_loss_carryover = st.number_input("Capital Loss Carryover", value=0)
@@ -44,7 +46,7 @@ df2 = st.data_editor(pd.DataFrame({
 'Resident Tax Credit':[0],
 'Real Estate Taxes Paid':[0]
 },
-index=["amount"]))
+index=["amount"]),width="content",disabled=["_index"])
 
 capital_loss_carryover = df2.loc["amount"]["Capital Loss Carryover"]
 resident_tax_credit = df2.loc["amount"]["Resident Tax Credit"]
