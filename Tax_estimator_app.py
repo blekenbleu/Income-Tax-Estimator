@@ -5,10 +5,11 @@ from federal_tax import estimate_tax
 from illinois_tax import apply_pso_credit, compute_illinois_tax
 
 st.title("💸 IRA Conversion & Tax Estimator")
-st.caption("For Married Filing Jointly | Ages 64 & 60")
 
 age_1 = st.number_input("Age of Taxpayer 1", value=64)
 age_2 = st.number_input("Age of Taxpayer 2", value=60)
+
+st.caption(f"For Married Filing Jointly | Ages ${age_1} & ${age_2}")
 
 income_sources = {
     "IRA Withdrawals": st.number_input("IRA Withdrawals", value=30000),
