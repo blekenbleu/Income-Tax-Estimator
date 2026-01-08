@@ -7,7 +7,7 @@ Tax and Conversion and Withdrawal
 - [Python install manager](https://docs.python.org/dev/using/windows.html)  
 	- installs only python *versions*, not *packages*  
 	- allow paths longer than 260 chars
-	- add to PATH: `%USERPROFILE%\AppData\Local\Python\bin`
+	- adds to PATH: `%USERPROFILE%\AppData\Local\Python\bin`
 	- installed 3.14.2 "To see all available commands, run 'py help'"
 - [manually add to PATH](https://geekrewind.com/how-to-add-and-edit-path-environment-variables-in-windows-11/):
 	- `%USERPROFILE%\AppData\Local\Python\pythoncore-3.14-64\Scripts`
