@@ -14,8 +14,8 @@ income_sources = {
     "IRA Withdrawals": st.number_input("IRA Withdrawals", value=30000),
     "Roth Conversions": st.number_input("Roth Conversions", value=20000),
     "Pension": st.number_input("Pension", value=25000),
-    "TSP": st.number_input("TSP", value=15000),
-    "Annuity": st.number_input("Annuity", value=10000),
+    "TSP": st.number_input("Thrift Savings Plan", value=0),
+    "Annuity": st.number_input("Annuity", value=0),
     "Interest": st.number_input("Interest", value=3000),
     "Ordinary Dividends": st.number_input("Ordinary Dividends", value=0),
     "Qualified Dividends": st.number_input("Qualified Dividends", value=5000),
@@ -25,7 +25,7 @@ income_sources = {
 
 capital_loss_carryover = st.number_input("Capital Loss Carryover", value=0)
 resident_tax_credit = float(st.number_input("Resident Tax Credit", value=0))
-is_pso_eligible = st.checkbox("Eligible for PSO Credit")
+is_pso_eligible = st.checkbox("Eligible for Public Safety Officer Credit")
 is_illinois_resident = st.checkbox("Illinois Resident")
 real_estate_tax_paid = st.number_input("Real Estate Taxes Paid", value=0)
 resident_tax_credit = real_estate_tax_paid * 0.05
