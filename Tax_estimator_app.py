@@ -47,14 +47,15 @@ fed_taxed_retirement = (
     income_sources.get("TSP", 0)
 )
 
-il_results = compute_illinois_tax(
-    income_sources,
-    fed_taxable_income=fed_results["Taxable Income"],
-    fed_taxed_retirement=fed_taxed_retirement,
-    taxable_social_security=fed_results["Taxed Social Security"],
-    capital_loss_carryover=capital_loss_carryover,
-    resident_tax_credit=resident_tax_credit
-)
+if is_illinois_resident:
+	il_results = compute_illinois_tax(
+    	income_sources,
+	    fed_taxable_income=fed_results["Taxable Income"],
+    	fed_taxed_retirement=fed_taxed_retirement,
+	    taxable_social_security=fed_results["Taxed Social Security"],
+    	capital_loss_carryover=capital_loss_carryover,
+	    resident_tax_credit=resident_tax_credit
+	)
 
 # Display
 
@@ -64,6 +65,7 @@ for k, v in fed_results.items():
         st.write(f"**{k}:** ${v:,.2f}" if isinstance(v, (int, float)) else f"**{k}:** {v}")
 
 st.write(f"Federally Taxed Retirement (excluded by IL): ${fed_taxed_retirement:,.2f}")
-st.subheader("Illinois Income Tax")
-st.write(f"IL Taxable Income: ${il_results['IL Taxable Income']:,.2f}")
-st.write(f"IL Tax Due: ${il_results['Illinois Tax']:,.2f}")
+if is_illinois_resident:
+	st.subheader("Illinois Income Tax")
+	st.write(f"IL Taxable Income: ${il_results['IL Taxable Income']:,.2f}")
+	st.write(f"IL Tax Due: ${il_results['Illinois Tax']:,.2f}")
