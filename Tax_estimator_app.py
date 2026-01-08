@@ -1,15 +1,24 @@
 # Tax_estimator_app.py
 
 import streamlit as st
+import pandas as pd
+
 from federal_tax import estimate_tax
 from illinois_tax import apply_pso_credit, compute_illinois_tax
 
 st.title("💸 IRA Conversion & Tax Estimator")
 
-age_1 = st.number_input("Age of Taxpayer 1", value=64)
-age_2 = st.number_input("Age of Taxpayer 2", value=60)
+df = st.data_editor(pd.DataFrame({
+'Taxpayer 1':[66],
+'Taxpayer 2':[64]
+},
+index=["age"]))
 
-st.caption(f"For Married Filing Jointly | Ages ${age_1} & ${age_2}")
+# age_1 = st.number_input("Age of Taxpayer 1", value=64)
+# age_2 = st.number_input("Age of Taxpayer 2", value=60)
+
+age_1 = df.loc["age"]["Taxpayer 1"]
+age_2 = df.loc["age"]["Taxpayer 2"]
 
 income_sources = {
     "IRA Withdrawals": st.number_input("IRA Withdrawals", value=30000),
@@ -24,12 +33,24 @@ income_sources = {
     "Social Security": st.number_input("Social Security", value=40000)
 }
 
-capital_loss_carryover = st.number_input("Capital Loss Carryover", value=0)
-resident_tax_credit = float(st.number_input("Resident Tax Credit", value=0))
+# capital_loss_carryover = st.number_input("Capital Loss Carryover", value=0)
+# resident_tax_credit = float(st.number_input("Resident Tax Credit", value=0))
 is_pso_eligible = st.checkbox("Eligible for Public Safety Officer Credit")
 is_illinois_resident = st.checkbox("Illinois Resident")
-real_estate_tax_paid = st.number_input("Real Estate Taxes Paid", value=0)
+# real_estate_tax_paid = st.number_input("Real Estate Taxes Paid", value=0)
+
+df2 = st.data_editor(pd.DataFrame({
+'Capital Loss Carryover':[0],
+'Resident Tax Credit':[0],
+'Real Estate Taxes Paid':[0]
+},
+index=["amount"]))
+
+capital_loss_carryover = df2.loc["amount"]["Capital Loss Carryover"]
+resident_tax_credit = df2.loc["amount"]["Resident Tax Credit"]
+real_estate_tax_paid = df2.loc["amount"]["Resident Tax Credit"]
 resident_tax_credit = real_estate_tax_paid * 0.05
+
 
 # Scoped copies
 
@@ -61,6 +82,8 @@ if is_illinois_resident:
 # Display
 
 st.subheader("📊 Federal Tax Summary")
+st.caption(f"For Married Filing Jointly | Ages ${age_1} & ${age_2}")
+
 for k, v in fed_results.items():
     if k not in ["Bracket Breakdown", "CG Breakdown"]:
         st.write(f"**{k}:** ${v:,.2f}" if isinstance(v, (int, float)) else f"**{k}:** {v}")
