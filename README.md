@@ -1,7 +1,10 @@
 # [Income-Tax-Estimator](https://github.com/rweastman-lgtm/Income-Tax-Estimator)
-Tax and Conversion and Withdrawal 
-- uses [Streamlit](https://pypi.org/project/streamlit/)  
+Tax and Conversion and Withdrawal for married filing jointly   
+- uses [Streamlit](https://pypi.org/project/streamlit/);&nbsp; launch from command line:  
   - `streamlit run Tax_estimator_app.py`  
+
+![](streamlit.png)  
+*replace numbers in tables with your values*  
 
 ## [Windows 11 Python](https://windowsforum.com/threads/best-ways-to-install-python-on-windows-11-expert-tips-methods.374218/) and [Streamlit](https://pypi.org/project/streamlit/) installation  
 - [Python install manager](https://docs.python.org/dev/using/windows.html)  
